@@ -66,7 +66,7 @@ taiwan-house-negotiation/
 
 > ⚠️ **資料來源說明：** MCP 的資料是 `tw-real-estate-mcp` 作者將內政部實價登錄資料**處理後存放在 Cloudflare R2** 的版本（經由 `real-estate-price-mcp.growtheap.com` 提供），**不是直接向內政部查詢**。資料可能有更新延遲或處理誤差，重要決策前請到[內政部實價登錄網站](https://lvr.land.moi.gov.tw/)核對。
 
-**需求：** Node.js 18 以上（透過 `npx` 執行，首次會自動下載套件）。若在有網路限制的環境（例如 Claude Code 雲端 session）使用，需允許連線到 `real-estate-price-mcp.growtheap.com`。
+**需求：** Node.js 18 以上（透過 `npx` 執行，首次會自動下載套件）。若在有網路限制的環境（例如 Claude Code 雲端 session）使用，需允許連線到 `real-estate-price-mcp.growtheap.com`。`.mcp.json` 已設定 `NODE_USE_ENV_PROXY=1`，讓 Node 內建的 `fetch` 走 `HTTPS_PROXY` 代理（Node 22.21 以上支援；沒有設代理或 Node 版本較舊時沒有作用，不影響本機使用）。
 
 ---
 
