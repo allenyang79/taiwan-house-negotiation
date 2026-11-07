@@ -26,41 +26,58 @@
 ## 📁 檔案結構
 
 ```
-house-negotiation/
-├── SKILL.md                          # 主技能文件（Claude 載入使用）
-└── references/
-    ├── region-guide.md               # 各縣市地區差異化係數與市場特性
-    ├── house-inspection-sop.md       # 看屋現場情報蒐集完整清單
-    ├── psychological-warfare.md      # 仲介施壓話術與完整反制邏輯
-    └── online-resources.md           # 台灣買房議價重要參考網站與數據來源
+taiwan-house-negotiation/
+├── README.md                                 # 專案說明（本文件）
+└── .claude/
+    └── skills/
+        └── house-negotiation/
+            ├── SKILL.md                      # 主技能文件（Claude 載入使用）
+            └── references/
+                ├── region-guide.md           # 各縣市地區差異化係數與市場特性
+                ├── house-inspection-sop.md   # 看屋現場情報蒐集完整清單
+                ├── psychological-warfare.md  # 仲介施壓話術與完整反制邏輯
+                └── online-resources.md       # 台灣買房議價重要參考網站與數據來源
 ```
+
+本專案採用 Claude Code 專案 Skill 的標準結構：Skill 放在 `.claude/skills/<skill-name>/`，主文件為 `SKILL.md`，細節參考資料放在同層的 `references/` 目錄，由 `SKILL.md` 以相對路徑 `references/xxx.md` 引用。
 
 ### 檔案說明
 
 | 檔案 | 說明 | 何時讀取 |
 |------|------|---------|
 | `SKILL.md` | 主體框架、核心工具、快速查找表 | 每次觸發 |
-| `region-guide.md` | 各縣市詳細議價係數、地區特性、淡季時機 | 用戶詢問特定地區時 |
-| `house-inspection-sop.md` | 完整看屋清單、20題必問、費用估算表 | 用戶問看屋技巧時 |
-| `psychological-warfare.md` | 七大施壓術詳細反制邏輯、讓仲介站你這邊 | 用戶被仲介施壓時 |
-| `online-resources.md` | 官方平台、市場分析、議價技巧文章、實價登錄技巧 | 用戶需要查資料來源時 |
+| `references/region-guide.md` | 各縣市詳細議價係數、地區特性、淡季時機 | 用戶詢問特定地區時 |
+| `references/house-inspection-sop.md` | 完整看屋清單、20題必問、費用估算表 | 用戶問看屋技巧時 |
+| `references/psychological-warfare.md` | 七大施壓術詳細反制邏輯、讓仲介站你這邊 | 用戶被仲介施壓時 |
+| `references/online-resources.md` | 官方平台、市場分析、議價技巧文章、實價登錄技巧 | 用戶需要查資料來源時 |
 
 ---
 
 ## 🚀 安裝方式
 
-### 方法一：手動安裝（Claude.ai Skills 介面）
+### 方法一：Claude Code（推薦）
 
-1. 複製 `SKILL.md` 的全部內容
-2. 前往 [Claude.ai](https://claude.ai) → 設定 → Skills
-3. 新增 Skill，貼上 `SKILL.md` 內容
-4. 若要啟用完整功能，將 `references/` 資料夾下的三個檔案分別加入 Skill 的附件區
-
-### 方法二：下載整個資料夾
+複製整個 repo，在專案目錄中啟動 Claude Code，即會自動載入 `.claude/skills/house-negotiation/`：
 
 ```bash
-git clone https://github.com/your-username/house-negotiation.git
+git clone https://github.com/allenyang79/taiwan-house-negotiation.git
 ```
+
+```bash
+cd taiwan-house-negotiation && claude
+```
+
+若想在所有專案中使用，可將 Skill 資料夾複製到個人 Skill 目錄：
+
+```bash
+cp -r taiwan-house-negotiation/.claude/skills/house-negotiation ~/.claude/skills/
+```
+
+### 方法二：手動安裝（Claude.ai Skills 介面）
+
+1. 將 `.claude/skills/house-negotiation/` 資料夾壓縮成 zip（需包含 `SKILL.md` 與 `references/`）
+2. 前往 [Claude.ai](https://claude.ai) → 設定 → Skills
+3. 上傳該 zip 檔，即可啟用包含四個參考檔的完整功能
 
 ---
 
