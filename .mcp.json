@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tw-real-estate": {
+      "command": "npx",
+      "args": ["-y", "tw-real-estate-mcp@0.1.1"]
+    }
+  }
+}

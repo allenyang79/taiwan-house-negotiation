@@ -28,6 +28,7 @@
 ```
 taiwan-house-negotiation/
 ├── README.md                                 # 專案說明（本文件）
+├── .mcp.json                                 # 專案 MCP 設定（tw-real-estate 實價登錄查詢）
 └── .claude/
     └── skills/
         └── house-negotiation/
@@ -39,17 +40,33 @@ taiwan-house-negotiation/
                 └── online-resources.md       # 台灣買房議價重要參考網站與數據來源
 ```
 
-本專案採用 Claude Code 專案 Skill 的標準結構：Skill 放在 `.claude/skills/<skill-name>/`，主文件為 `SKILL.md`，細節參考資料放在同層的 `references/` 目錄，由 `SKILL.md` 以相對路徑 `references/xxx.md` 引用。
+本專案採用 Claude Code 專案 Skill 的標準結構：Skill 放在 `.claude/skills/<skill-name>/`，主文件為 `SKILL.md`，細節參考資料放在同層的 `references/` 目錄，由 `SKILL.md` 以相對路徑 `references/xxx.md` 引用。根目錄的 `.mcp.json` 是 Claude Code 的專案層級 MCP 設定，在此目錄啟動 Claude Code 時會載入（首次使用需同意啟用）。
 
 ### 檔案說明
 
 | 檔案 | 說明 | 何時讀取 |
 |------|------|---------|
-| `SKILL.md` | 主體框架、核心工具、快速查找表 | 每次觸發 |
-| `references/region-guide.md` | 各縣市詳細議價係數、地區特性、淡季時機 | 用戶詢問特定地區時 |
-| `references/house-inspection-sop.md` | 完整看屋清單、20題必問、費用估算表 | 用戶問看屋技巧時 |
-| `references/psychological-warfare.md` | 七大施壓術詳細反制邏輯、讓仲介站你這邊 | 用戶被仲介施壓時 |
-| `references/online-resources.md` | 官方平台、市場分析、議價技巧文章、實價登錄技巧 | 用戶需要查資料來源時 |
+| `.mcp.json` | 註冊 `tw-real-estate-mcp@0.1.1`（鎖定版本），提供實價登錄查詢工具 | 啟動 Claude Code 時載入 |
+| `.claude/skills/house-negotiation/SKILL.md` | 主體框架、核心工具、快速查找表 | 每次觸發 |
+| `.claude/skills/house-negotiation/references/region-guide.md` | 各縣市詳細議價係數、地區特性、淡季時機 | 用戶詢問特定地區時 |
+| `.claude/skills/house-negotiation/references/house-inspection-sop.md` | 完整看屋清單、20題必問、費用估算表 | 用戶問看屋技巧時 |
+| `.claude/skills/house-negotiation/references/psychological-warfare.md` | 七大施壓術詳細反制邏輯、讓仲介站你這邊 | 用戶被仲介施壓時 |
+| `.claude/skills/house-negotiation/references/online-resources.md` | 官方平台、市場分析、議價技巧文章、實價登錄技巧 | 用戶需要查資料來源時 |
+
+---
+
+## 🔗 議價 Skill × 實價登錄 MCP
+
+這個 repo 結合了兩個部分：
+
+- **`house-negotiation` Skill**：議價框架、出價公式、話術與反制策略
+- **[`tw-real-estate-mcp`](https://github.com/fantasywind/tw-real-estate-mcp)**：實價登錄查詢 MCP server，提供 `list_cities`、`list_towns`、`search_properties`、`get_statistics`、`get_price_trends`、`list_available_data` 等工具
+
+兩者搭配時，Claude 可以先用 MCP 查出該區近期成交均價、中位數與趨勢，再套用 Skill 的屋主動機評分與出價公式，給出有數據根據的出價建議。
+
+> ⚠️ **資料來源說明：** MCP 的資料是 `tw-real-estate-mcp` 作者將內政部實價登錄資料**處理後存放在 Cloudflare R2** 的版本（經由 `real-estate-price-mcp.growtheap.com` 提供），**不是直接向內政部查詢**。資料可能有更新延遲或處理誤差，重要決策前請到[內政部實價登錄網站](https://lvr.land.moi.gov.tw/)核對。
+
+**需求：** Node.js 18 以上（透過 `npx` 執行，首次會自動下載套件）。若在有網路限制的環境（例如 Claude Code 雲端 session）使用，需允許連線到 `real-estate-price-mcp.growtheap.com`。
 
 ---
 
@@ -57,7 +74,7 @@ taiwan-house-negotiation/
 
 ### 方法一：Claude Code（推薦）
 
-複製整個 repo，在專案目錄中啟動 Claude Code，即會自動載入 `.claude/skills/house-negotiation/`：
+複製整個 repo，在專案目錄中啟動 Claude Code，即會自動載入 `.claude/skills/house-negotiation/` 與 `.mcp.json` 中的實價登錄 MCP：
 
 ```bash
 git clone https://github.com/allenyang79/taiwan-house-negotiation.git
