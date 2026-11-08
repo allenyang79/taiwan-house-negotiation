@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "taiwan-house-negotiation": {
+      "source": {
+        "source": "github",
+        "repo": "allenyang79/taiwan-house-negotiation"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "house-negotiation@taiwan-house-negotiation": true
+  }
+}

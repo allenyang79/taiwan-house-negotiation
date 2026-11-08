@@ -1,0 +1,15 @@
+{
+  "name": "taiwan-house-negotiation",
+  "owner": {
+    "name": "allenyang79"
+  },
+  "description": "台灣買房議價顧問：議價 Skill + 實價登錄 MCP",
+  "plugins": [
+    {
+      "name": "house-negotiation",
+      "source": "./",
+      "description": "台灣買房議價顧問 Skill，搭配 tw-real-estate-mcp 實價登錄查詢",
+      "version": "2.2.0"
+    }
+  ]
+}

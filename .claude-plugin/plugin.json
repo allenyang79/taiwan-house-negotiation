@@ -1,0 +1,29 @@
+{
+  "name": "house-negotiation",
+  "version": "2.2.0",
+  "description": "台灣買房議價顧問 Skill，搭配 tw-real-estate-mcp 實價登錄查詢",
+  "author": {
+    "name": "allenyang79"
+  },
+  "homepage": "https://github.com/allenyang79/taiwan-house-negotiation",
+  "repository": "https://github.com/allenyang79/taiwan-house-negotiation",
+  "keywords": [
+    "taiwan",
+    "real-estate",
+    "negotiation",
+    "實價登錄",
+    "買房"
+  ],
+  "mcpServers": {
+    "tw-real-estate": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "tw-real-estate-mcp@0.1.1"
+      ],
+      "env": {
+        "NODE_USE_ENV_PROXY": "1"
+      }
+    }
+  }
+}
